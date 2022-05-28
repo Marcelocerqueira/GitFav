@@ -1,7 +1,7 @@
 import { GithubUser } from "./GithubUser.js"
 
-// uma classe que vai conter a logica dos dados
-//como os dados serao estruturados
+// a class that will contain the logic of the data
+//how the data will be structured
 
 export class Favorites {
   constructor(root) {
@@ -22,14 +22,14 @@ export class Favorites {
 
       const userExists = this.entries.find(entry => entry.login === username)
 
-      if(userExists) {
+      if (userExists) {
         throw new Error('Usuário já cadastrado')
       }
 
 
       const user = await GithubUser.search(username)
 
-      if(user.login === undefined) {
+      if (user.login === undefined) {
         throw new Error('Usuário não encontrado!')
       }
 
@@ -37,7 +37,7 @@ export class Favorites {
       this.update()
       this.save()
 
-    } catch(error) {
+    } catch (error) {
       alert(error.message)
     }
   }
@@ -52,7 +52,7 @@ export class Favorites {
   }
 }
 
-// classe que vai criar a visualização e eventos do HTML
+// class that will create the HTML view and events
 
 export class FavoritesView extends Favorites {
   constructor(root) {
@@ -76,7 +76,7 @@ export class FavoritesView extends Favorites {
   update() {
     this.removeAllTr()
 
-    this.entries.forEach( user => {
+    this.entries.forEach(user => {
       const row = this.createRow()
 
       row.querySelector('.user img').src = `https://github.com/${user.login}.png`
@@ -89,7 +89,7 @@ export class FavoritesView extends Favorites {
 
       row.querySelector('.remove').onclick = () => {
         const isOk = confirm('Tem certeza que deseja deletar essa linha?')
-        if(isOk) {
+        if (isOk) {
           this.delete(user)
         }
       }
@@ -116,7 +116,7 @@ export class FavoritesView extends Favorites {
         9589
       </td>
       <td>
-        <button class="remove">&times;</button>
+        <button class="remove">Remover</button>
       </td>
     `
 
@@ -127,6 +127,6 @@ export class FavoritesView extends Favorites {
     this.tbody.querySelectorAll('tr')
       .forEach((tr) => {
         tr.remove()
-      })  
+      })
   }
 }
